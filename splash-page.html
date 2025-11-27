@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AirGuide - Airport Navigation Made Simple</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: linear-gradient(135deg, #f0f7ff 0%, #ffffff 50%, #e6f2ff 100%);
+            min-height: 100vh;
+            color: #1a1a2e;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo img {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+        }
+
+        .logo-text {
+            font-size: 24px;
+            font-weight: 700;
+            color: #0066CC;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #4a4a6a;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: #0066CC;
+        }
+
+        .hero {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 80px 0;
+            gap: 60px;
+        }
+
+        .hero-content {
+            flex: 1;
+            max-width: 550px;
+        }
+
+        .hero h1 {
+            font-size: 52px;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 24px;
+            background: linear-gradient(135deg, #0066CC 0%, #004499 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 20px;
+            color: #5a5a7a;
+            line-height: 1.6;
+            margin-bottom: 40px;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 16px 32px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #0066CC 0%, #0052a3 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(0, 102, 204, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 102, 204, 0.4);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #0066CC;
+            border: 2px solid #0066CC;
+        }
+
+        .btn-secondary:hover {
+            background: #f0f7ff;
+        }
+
+        .hero-image {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            position: relative;
+        }
+
+        .phone-mockup {
+            width: 300px;
+            height: 600px;
+            background: linear-gradient(180deg, #1a1a2e 0%, #2d2d44 100%);
+            border-radius: 40px;
+            padding: 12px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15), 0 10px 20px rgba(0, 102, 204, 0.1);
+            position: relative;
+        }
+
+        .phone-screen {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
+            border-radius: 32px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .phone-header {
+            background: linear-gradient(135deg, #0066CC 0%, #0052a3 100%);
+            padding: 50px 20px 20px;
+            color: white;
+        }
+
+        .phone-header h3 {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .phone-header p {
+            font-size: 12px;
+            opacity: 0.8;
+        }
+
+        .phone-content {
+            padding: 20px;
+            flex: 1;
+        }
+
+        .airport-card {
+            background: white;
+            border-radius: 16px;
+            padding: 16px;
+            margin-bottom: 12px;
+            box-shadow: 0 2px 8px rgba(0, 102, 204, 0.08);
+            border: 1px solid #e6f2ff;
+        }
+
+        .airport-card h4 {
+            font-size: 14px;
+            color: #1a1a2e;
+            margin-bottom: 4px;
+        }
+
+        .airport-card p {
+            font-size: 11px;
+            color: #7a7a9a;
+        }
+
+        .airport-code {
+            display: inline-block;
+            background: #e6f2ff;
+            color: #0066CC;
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 10px;
+            font-weight: 700;
+            margin-top: 8px;
+        }
+
+        .features {
+            padding: 80px 0;
+        }
+
+        .features h2 {
+            text-align: center;
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 60px;
+            color: #1a1a2e;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            background: white;
+            border-radius: 20px;
+            padding: 32px;
+            box-shadow: 0 4px 20px rgba(0, 102, 204, 0.08);
+            border: 1px solid #e6f2ff;
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, #e6f2ff 0%, #d0e8ff 100%);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+        .feature-card h3 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #1a1a2e;
+        }
+
+        .feature-card p {
+            color: #6a6a8a;
+            line-height: 1.6;
+        }
+
+        .pricing {
+            padding: 80px 0;
+            background: linear-gradient(180deg, #f8fbff 0%, #ffffff 100%);
+            margin: 0 -20px;
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+
+        .pricing h2 {
+            text-align: center;
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: #1a1a2e;
+        }
+
+        .pricing-subtitle {
+            text-align: center;
+            color: #6a6a8a;
+            font-size: 18px;
+            margin-bottom: 60px;
+        }
+
+        .pricing-cards {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .pricing-card {
+            background: white;
+            border-radius: 24px;
+            padding: 40px;
+            width: 320px;
+            box-shadow: 0 4px 20px rgba(0, 102, 204, 0.08);
+            border: 2px solid #e6f2ff;
+            position: relative;
+        }
+
+        .pricing-card.featured {
+            border-color: #0066CC;
+            transform: scale(1.05);
+        }
+
+        .pricing-badge {
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, #0066CC 0%, #0052a3 100%);
+            color: white;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .pricing-card h3 {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #1a1a2e;
+        }
+
+        .pricing-card .price {
+            font-size: 48px;
+            font-weight: 800;
+            color: #0066CC;
+            margin-bottom: 8px;
+        }
+
+        .pricing-card .price span {
+            font-size: 16px;
+            font-weight: 400;
+            color: #7a7a9a;
+        }
+
+        .pricing-card .price-note {
+            font-size: 14px;
+            color: #7a7a9a;
+            margin-bottom: 24px;
+        }
+
+        .pricing-features {
+            list-style: none;
+            margin-bottom: 32px;
+        }
+
+        .pricing-features li {
+            padding: 12px 0;
+            border-bottom: 1px solid #f0f0f5;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #4a4a6a;
+        }
+
+        .pricing-features li:last-child {
+            border-bottom: none;
+        }
+
+        .check-icon {
+            color: #0066CC;
+            font-weight: bold;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 0;
+            color: #7a7a9a;
+            border-top: 1px solid #e6f2ff;
+            margin-top: 60px;
+        }
+
+        @media (max-width: 900px) {
+            .hero {
+                flex-direction: column;
+                text-align: center;
+                padding: 40px 0;
+            }
+
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .hero p {
+                font-size: 18px;
+            }
+
+            .cta-buttons {
+                justify-content: center;
+            }
+
+            .phone-mockup {
+                width: 250px;
+                height: 500px;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .pricing-card.featured {
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <img src="assets/images/icon.png" alt="AirGuide Logo">
+                <span class="logo-text">AirGuide</span>
+            </div>
+            <nav class="nav-links">
+                <a href="#features">Features</a>
+                <a href="#pricing">Pricing</a>
+                <a href="#download">Download</a>
+            </nav>
+        </header>
+
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Navigate Any Airport With Confidence</h1>
+                <p>3D interactive maps, AR-powered directions, and real-time flight tracking. Never miss a gate again with AirGuide - your personal airport companion.</p>
+                <div class="cta-buttons">
+                    <a href="#download" class="btn btn-primary">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                            <polyline points="7 10 12 15 17 10"/>
+                            <line x1="12" y1="15" x2="12" y2="3"/>
+                        </svg>
+                        Download App
+                    </a>
+                    <a href="#features" class="btn btn-secondary">Learn More</a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="phone-mockup">
+                    <div class="phone-screen">
+                        <div class="phone-header">
+                            <h3>Explore Airports</h3>
+                            <p>Find your way anywhere</p>
+                        </div>
+                        <div class="phone-content">
+                            <div class="airport-card">
+                                <h4>Los Angeles International</h4>
+                                <p>Los Angeles, California</p>
+                                <span class="airport-code">LAX</span>
+                            </div>
+                            <div class="airport-card">
+                                <h4>John F. Kennedy International</h4>
+                                <p>New York, New York</p>
+                                <span class="airport-code">JFK</span>
+                            </div>
+                            <div class="airport-card">
+                                <h4>Tampa International</h4>
+                                <p>Tampa, Florida</p>
+                                <span class="airport-code">TPA</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="features" id="features">
+            <h2>Everything You Need to Navigate</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#0066CC" stroke-width="2">
+                            <polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/>
+                            <line x1="8" y1="2" x2="8" y2="18"/>
+                            <line x1="16" y1="6" x2="16" y2="22"/>
+                        </svg>
+                    </div>
+                    <h3>3D Airport Maps</h3>
+                    <p>Explore detailed 3D layouts of terminals, gates, restaurants, and amenities. Multi-floor navigation made simple.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#0066CC" stroke-width="2">
+                            <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+                            <circle cx="12" cy="13" r="4"/>
+                        </svg>
+                    </div>
+                    <h3>AR Navigation</h3>
+                    <p>Point your camera and follow augmented reality arrows to your destination. Turn-by-turn guidance in real-time.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#0066CC" stroke-width="2">
+                            <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+                        </svg>
+                    </div>
+                    <h3>Flight Tracking</h3>
+                    <p>Track your flights with real-time updates on gate changes, delays, and boarding times. Never miss an announcement.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#0066CC" stroke-width="2">
+                            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+                            <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+                        </svg>
+                    </div>
+                    <h3>Smart Alerts</h3>
+                    <p>Get notified about gate changes, delays, and boarding calls. Haptic feedback ensures you never miss an update.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#0066CC" stroke-width="2">
+                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                            <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                        </svg>
+                    </div>
+                    <h3>Secure & Private</h3>
+                    <p>Face ID, Touch ID, and PIN protection. Your data is encrypted and stored locally on your device.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#0066CC" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"/>
+                            <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+                            <line x1="12" y1="17" x2="12.01" y2="17"/>
+                        </svg>
+                    </div>
+                    <h3>Support Pets</h3>
+                    <p>Choose your travel companion! Cute animated mascots offer encouragement and helpful tips throughout your journey.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="pricing" id="pricing">
+            <h2>Simple, Transparent Pricing</h2>
+            <p class="pricing-subtitle">Start free, upgrade when you need more</p>
+            <div class="pricing-cards">
+                <div class="pricing-card">
+                    <h3>Free</h3>
+                    <div class="price">$0</div>
+                    <div class="price-note">Forever free</div>
+                    <ul class="pricing-features">
+                        <li><span class="check-icon">&#10003;</span> Track 1 flight</li>
+                        <li><span class="check-icon">&#10003;</span> 3D airport maps</li>
+                        <li><span class="check-icon">&#10003;</span> AR navigation</li>
+                        <li><span class="check-icon">&#10003;</span> Basic alerts</li>
+                        <li><span class="check-icon">&#10003;</span> Secure storage</li>
+                    </ul>
+                    <a href="#download" class="btn btn-secondary" style="width: 100%; justify-content: center;">Get Started</a>
+                </div>
+                <div class="pricing-card featured">
+                    <div class="pricing-badge">BEST VALUE</div>
+                    <h3>Premium Yearly</h3>
+                    <div class="price">$79.99<span>/year</span></div>
+                    <div class="price-note">Save 33% vs monthly</div>
+                    <ul class="pricing-features">
+                        <li><span class="check-icon">&#10003;</span> Unlimited flight tracking</li>
+                        <li><span class="check-icon">&#10003;</span> Priority notifications</li>
+                        <li><span class="check-icon">&#10003;</span> All airport maps</li>
+                        <li><span class="check-icon">&#10003;</span> Advanced AR features</li>
+                        <li><span class="check-icon">&#10003;</span> Premium support</li>
+                    </ul>
+                    <a href="#download" class="btn btn-primary" style="width: 100%; justify-content: center;">Subscribe Now</a>
+                </div>
+                <div class="pricing-card">
+                    <h3>Premium Monthly</h3>
+                    <div class="price">$9.99<span>/month</span></div>
+                    <div class="price-note">Flexible monthly billing</div>
+                    <ul class="pricing-features">
+                        <li><span class="check-icon">&#10003;</span> Unlimited flight tracking</li>
+                        <li><span class="check-icon">&#10003;</span> Priority notifications</li>
+                        <li><span class="check-icon">&#10003;</span> All airport maps</li>
+                        <li><span class="check-icon">&#10003;</span> Advanced AR features</li>
+                        <li><span class="check-icon">&#10003;</span> Premium support</li>
+                    </ul>
+                    <a href="#download" class="btn btn-secondary" style="width: 100%; justify-content: center;">Subscribe Now</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="download" style="text-align: center; padding: 80px 0;">
+            <h2 style="font-size: 36px; margin-bottom: 16px; color: #1a1a2e;">Ready to Navigate?</h2>
+            <p style="color: #6a6a8a; font-size: 18px; margin-bottom: 40px;">Download AirGuide and explore airports like never before.</p>
+            <div class="cta-buttons" style="justify-content: center;">
+                <a href="https://apps.apple.com/app/id982107779" class="btn btn-primary" target="_blank">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+                    </svg>
+                    App Store
+                </a>
+                <a href="https://play.google.com/store/apps/details?id=host.exp.exponent" class="btn btn-primary" target="_blank">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M3,20.5V3.5C3,2.91 3.34,2.39 3.84,2.15L13.69,12L3.84,21.85C3.34,21.6 3,21.09 3,20.5M16.81,15.12L6.05,21.34L14.54,12.85L16.81,15.12M20.16,10.81C20.5,11.08 20.75,11.5 20.75,12C20.75,12.5 20.53,12.9 20.18,13.18L17.89,14.5L15.39,12L17.89,9.5L20.16,10.81M6.05,2.66L16.81,8.88L14.54,11.15L6.05,2.66Z"/>
+                    </svg>
+                    Google Play
+                </a>
+            </div>
+        </section>
+
+        <footer>
+            <p>2025 AirGuide. Navigate with confidence.</p>
+        </footer>
+    </div>
+</body>
+</html>
