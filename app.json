@@ -10,7 +10,10 @@
     "newArchEnabled": true,
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.airnav3d.app"
+      "bundleIdentifier": "com.airnav3d.app",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
     },
     "android": {
       "package": "com.airnav3d.app",
@@ -44,6 +47,11 @@
     ],
     "experiments": {
       "reactCompiler": true
+    },
+    "extra": {
+      "eas": {
+        "projectId": "9aba8cc6-a342-4aaf-af3c-12fb91dffe6c"
+      }
     }
   }
 }
